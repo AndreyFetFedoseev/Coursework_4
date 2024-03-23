@@ -1,3 +1,6 @@
+import json
+import requests
+
 def getAreas():
     req = requests.get('https://api.hh.ru/areas')
     data = req.content.decode()
@@ -18,6 +21,11 @@ def getAreas():
                               k['areas'][i]['id'],
                               k['areas'][i]['name']])
     return areas
+
+def load_files(json_file):
+    with open(json_file, 'r') as file:
+        data_vacancy = json.load(file)
+    return data_vacancy
 
 # areas = getAreas()
 # city = {}

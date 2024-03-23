@@ -1,4 +1,7 @@
 from class_HeadHunterAPI import HH
+from functions import load_files
+from class_job_vacancies import JobVacancy
+
 import json
 
 HeadhunterAPI = HH()
@@ -8,20 +11,24 @@ keyword = input('Введите поисковый запрос: ')
 country = input('Введите в каком городе искать вакансии: ').capitalize()
 HeadhunterAPI.load_vacancies(keyword, data[country])
 HeadhunterAPI.save_vacancies('data.json', HeadhunterAPI.vacancies)
-for dict_vacanci in HeadhunterAPI.vacancies:
-    name = dict_vacanci.get('name')
-    department = dict_vacanci.get('department')
-    if department is not None:
-        department = department.get('name')
-    else:
-        department = 'Неизвестен'
-    salary = dict_vacanci.get('salary')
-    if salary is not None:
-        salary = f'{salary.get('from')} - {salary.get('to')}'
-    else:
-        salary = 'Неопределен'
-    print(f'Название вакансии: {name}, работодатель\отдел: {department}, уровень зарплаты: {salary}')
+# for dict_vacanci in HeadhunterAPI.vacancies:
+#     name = dict_vacanci.get('name')
+#     department = dict_vacanci.get('department')
+#     if department is not None:
+#         department = department.get('name')
+#     else:
+#         department = 'Неизвестен'
+#     salary = dict_vacanci.get('salary')
+#     if salary is not None:
+#         salary = f'{salary.get('from')} - {salary.get('to')}'
+#     else:
+#         salary = 'Неопределен'
+#     snippet = dict_vacanci.get('snippet')
+#     print(f'Название вакансии: {name}, работодатель\отдел: {department}, уровень зарплаты: {salary},\n требования: {snippet}')
 
+a = JobVacancy.get_list_vacancy('data.json')
+print(a)
+print(JobVacancy.count_vacancies)
 # print(HeadhunterAPI.vacancies)
 # Создание экземпляра класса для работы с API сайтов с вакансиями
 # hh_api = HeadHunterAPI()а

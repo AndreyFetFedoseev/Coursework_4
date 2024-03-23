@@ -25,7 +25,6 @@ class HH(AbstractHH):
         self.headers = {'User-Agent': 'HH-User-Agent'}
         self.params = {'text': '', 'page': 0, 'per_page': 100, 'area': 1}
         self.vacancies = []
-        # super.__init__(file_worker)
 
     def load_vacancies(self, keyword, city):
         self.params['text'] = keyword
@@ -40,5 +39,3 @@ class HH(AbstractHH):
     def save_vacancies(files, data):
         with open(files, 'w', encoding='utf-8') as file:
             json.dump(data, file)
-
-
