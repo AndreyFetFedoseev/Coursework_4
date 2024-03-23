@@ -10,7 +10,7 @@ class AbstractHH(ABC):
     """
 
     @abstractmethod
-    def load_vacancies(self, keyword):
+    def load_vacancies(self, keyword, city):
         pass
 
 
@@ -23,15 +23,22 @@ class HH(AbstractHH):
     def __init__(self):
         self.url = 'https://api.hh.ru/vacancies'
         self.headers = {'User-Agent': 'HH-User-Agent'}
-        self.params = {'text': '', 'page': 0, 'per_page': 100, 'area': ''}
+        self.params = {'text': '', 'page': 0, 'per_page': 100, 'area': 1}
         self.vacancies = []
         # super.__init__(file_worker)
 
-    def load_vacancies(self, keyword, test):
+    def load_vacancies(self, keyword, city):
         self.params['text'] = keyword
-        self.params['area'] = test
+        self.params['area'] = city
         while self.params.get('page') != 20:
             response = requests.get(self.url, headers=self.headers, params=self.params)
             vacancies = response.json()['items']
             self.vacancies.extend(vacancies)
             self.params['page'] += 1
+
+    @staticmethod
+    def save_vacancies(files, data):
+        with open(files, 'w', encoding='utf-8') as file:
+            json.dump(data, file)
+
+
