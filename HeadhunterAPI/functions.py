@@ -1,13 +1,14 @@
 import json
 import requests
 
-def getAreas():
+
+def get_areas():
     req = requests.get('https://api.hh.ru/areas')
     data = req.content.decode()
     req.close()
-    jsObj = json.loads(data)
+    js_obj = json.loads(data)
     areas = []
-    for k in jsObj:
+    for k in js_obj:
         for i in range(len(k['areas'])):
             if len(k['areas'][i]['areas']) != 0:  # Если у зоны есть внутренние зоны
                 for j in range(len(k['areas'][i]['areas'])):
@@ -22,12 +23,18 @@ def getAreas():
                               k['areas'][i]['name']])
     return areas
 
+
 def load_files(json_file):
     with open(json_file, 'r') as file:
         data_vacancy = json.load(file)
     return data_vacancy
 
-# areas = getAreas()
+
+def save_vacancies(files, data):
+    with open(files, 'w', encoding='utf-8') as file:
+        json.dump(data, file)
+
+# areas = get_areas()
 # city = {}
 # for area in areas:
 #     # print(area)

@@ -1,5 +1,5 @@
 from class_HeadHunterAPI import HH
-from functions import load_files
+# from functions import load_files
 from class_job_vacancies import JobVacancy
 
 import json
@@ -24,7 +24,8 @@ HeadhunterAPI.save_vacancies('data.json', HeadhunterAPI.vacancies)
 #     else:
 #         salary = 'Неопределен'
 #     snippet = dict_vacanci.get('snippet')
-#     print(f'Название вакансии: {name}, работодатель\отдел: {department}, уровень зарплаты: {salary},\n требования: {snippet}')
+#     print(f'Название вакансии: {name}, работодатель\отдел: {department}, уровень зарплаты: {salary},\n '
+#           f'требования: {snippet}')
 
 a = JobVacancy.get_list_vacancy('data.json')
 print(a)
