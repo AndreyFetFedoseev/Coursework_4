@@ -1,16 +1,21 @@
 from class_HeadHunterAPI import HH
 # from functions import load_files
 from class_job_vacancies import JobVacancy
+from class_job_files import JobFiles
 
-import json
 
 HeadhunterAPI = HH()
-with open('country.json', 'r', encoding='utf-8') as file:
-    data = json.load(file)
+# with open('country.json', 'r', encoding='utf-8') as file:
+#     data = json.load(file)
 keyword = input('Введите поисковый запрос: ')
 country = input('Введите в каком городе искать вакансии: ').capitalize()
-HeadhunterAPI.load_vacancies(keyword, data[country])
-HeadhunterAPI.save_vacancies('data.json', HeadhunterAPI.vacancies)
+top_n = int(input('Введите кол-во вакансий для вывода в топ: '))
+salary_range = input('Введите диапазон зарплат(Пример: 100000-150000): ')
+# HeadhunterAPI.load_vacancies(keyword, data[country])
+city = JobFiles.load_files('country.json')
+HeadhunterAPI.load_vacancies(keyword, city[country])
+# HeadhunterAPI.save_vacancies('data.json', HeadhunterAPI.vacancies)
+JobFiles.save_vacancies('data.json', HeadhunterAPI.vacancies)
 # for dict_vacanci in HeadhunterAPI.vacancies:
 #     name = dict_vacanci.get('name')
 #     department = dict_vacanci.get('department')
@@ -29,7 +34,14 @@ HeadhunterAPI.save_vacancies('data.json', HeadhunterAPI.vacancies)
 
 a = JobVacancy.get_list_vacancy('data.json')
 print(a)
-print(JobVacancy.count_vacancies)
+b = JobVacancy.selection_of_vacancies(a, salary_range)
+c = JobVacancy.sorted_top_vacancy(b, top_n)
+print(c)
+print(str(c[0]))
+
+
+
+
 # print(HeadhunterAPI.vacancies)
 # Создание экземпляра класса для работы с API сайтов с вакансиями
 # hh_api = HeadHunterAPI()а
@@ -59,3 +71,12 @@ print(JobVacancy.count_vacancies)
 #     filtered_vacancies = filter_vacancies(vacancies_list, filter_words)
 #
 #     ranged_vacancies = get_vacancies_by_salary(filtered_vacancies, salary_range)
+#
+#     sorted_vacancies = sort_vacancies(ranged_vacancies)
+#     top_vacancies = get_top_vacancies(sorted_vacancies, top_n)
+#     print_vacancies(top_vacancies)
+#
+#
+# if __name__ == "__main__":
+#     user_interaction()
+
