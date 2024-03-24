@@ -28,8 +28,8 @@ def user_interaction():
     sort_top_vacancies = JobVacancy.sorted_top_vacancy(selection_vacancies_by_salary, top_n)
     JobVacancy.print_top_vacancies(sort_top_vacancies, selection_vacancies_by_salary)
 
-    # Сохранение отобранного списка вакансий
-    JobFiles.save_vacancies('data_vacancies.json', selection_vacancies_by_salary)
+    # Сохранение списка вакансий с определенного города
+    JobFiles.save_vacancies('data_vacancies.json', head_hunter_api.vacancies)
 
 
 if __name__ == "__main__":
