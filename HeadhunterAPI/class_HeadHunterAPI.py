@@ -1,4 +1,4 @@
-import json
+# import json
 from abc import ABC, abstractmethod
 
 import requests
@@ -35,7 +35,7 @@ class HH(AbstractHH):
             self.vacancies.extend(vacancies)
             self.params['page'] += 1
 
-    @staticmethod
-    def save_vacancies(files, data):
-        with open(files, 'w', encoding='utf-8') as file:
-            json.dump(data, file)
+    # @staticmethod
+    # def save_vacancies(files, data):
+    #     with open(files, 'w', encoding='utf-8') as file:
+    #         json.dump(data, file)
