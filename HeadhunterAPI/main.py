@@ -22,14 +22,14 @@ def user_interaction():
     # Получение вакансий с hh.ru в формате JSON
     head_hunter_api.load_vacancies(keyword, city[country])
 
+    # Сохранение списка вакансий с определенного города в json файл
+    JobFiles.save_vacancies('../Data/data_vacancies.json', head_hunter_api.vacancies)
+
     # Обработка списка вакансий
-    list_vacancies = JobVacancy.get_list_vacancy(head_hunter_api.vacancies)
+    list_vacancies = JobVacancy.get_list_vacancy('../Data/data_vacancies.json')
     selection_vacancies_by_salary = JobVacancy.selection_of_vacancies(list_vacancies, salary_range)
     sort_top_vacancies = JobVacancy.sorted_top_vacancy(selection_vacancies_by_salary, top_n)
     JobVacancy.print_top_vacancies(sort_top_vacancies, selection_vacancies_by_salary)
-
-    # Сохранение списка вакансий с определенного города
-    JobFiles.save_vacancies('../Data/data_vacancies.json', head_hunter_api.vacancies)
 
 
 if __name__ == "__main__":
