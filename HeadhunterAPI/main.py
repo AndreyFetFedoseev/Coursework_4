@@ -17,7 +17,7 @@ def user_interaction():
     salary_range = input('Введите диапазон зарплат(Пример: 100000-150000): ')
 
     # Загрузка словаря городов из файла в формате JSON
-    city = JobFiles.load_files('country.json')
+    city = JobFiles.load_files('../Data/country.json')
 
     # Получение вакансий с hh.ru в формате JSON
     head_hunter_api.load_vacancies(keyword, city[country])
@@ -29,7 +29,7 @@ def user_interaction():
     JobVacancy.print_top_vacancies(sort_top_vacancies, selection_vacancies_by_salary)
 
     # Сохранение списка вакансий с определенного города
-    JobFiles.save_vacancies('data_vacancies.json', head_hunter_api.vacancies)
+    JobFiles.save_vacancies('../Data/data_vacancies.json', head_hunter_api.vacancies)
 
 
 if __name__ == "__main__":

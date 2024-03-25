@@ -2,6 +2,11 @@ class JobVacancy:
     """
     Класс для работы со списком вакансий
     """
+    name: str
+    salary: int
+    url: str
+    snippet: str
+    employer: str
 
     count_vacancies = 0
 
@@ -23,21 +28,32 @@ class JobVacancy:
         JobVacancy.count_vacancies += 1
 
     def __repr__(self):
+        """
+        Строковое представление конструктора экземпляра вакансии
+        :return: str
+        """
         return (f'{self.__class__.__name__}("{self.name}", "{self.employer}", "{self.salary}", "{self.snippet}", '
                 f'"{self.url}")')
 
-    def __len__(self, ):
-        return JobVacancy.count_vacancies
-
     def __str__(self):
-        return (f'Название вакансии: {self.name}; Работодатель: {self.employer}; Уровень зарплаты: {self.salary}\n'
-                f'Требования: {self.snippet}\nСсылка на вакансию: {self.url}'
-                )
+        """
+        Описание экземпляра вакансии
+        :return: str
+        """
+        return (
+            f'Название вакансии: {self.name}; Работодатель: {self.employer}; Уровень зарплаты: {self.salary}\n'
+            f'Требования: {self.snippet}\nСсылка на вакансию: {self.url}'
+        )
 
     @classmethod
-    def get_list_vacancy(cls, list_dict_file_vacancies):
+    def get_list_vacancy(cls, list_dict_vacancies):
+        """
+        Получение списка экземпляров вакансий
+        :param list_dict_vacancies: list vacancies is file JSON
+        :return: list_vacancy
+        """
         list_vacancy = []
-        for dict_vacancy in list_dict_file_vacancies:
+        for dict_vacancy in list_dict_vacancies:
             vacancy = cls(dict_vacancy.get('name'), dict_vacancy.get('salary'), dict_vacancy.get('alternate_url'),
                           dict_vacancy.get('snippet').get('requirement'), dict_vacancy.get('employer').get('name'))
             list_vacancy.append(vacancy)
@@ -66,12 +82,18 @@ class JobVacancy:
         list_selection_vacancies = []
         range_salary = salary_range.split('-')
         for vacancy in list_obj_vacancy:
-            if min(map(int, range_salary)) < vacancy.salary < max(map(int, range_salary)):
+            if min(map(int, range_salary)) <= vacancy.salary <= max(map(int, range_salary)):
                 list_selection_vacancies.append(vacancy)
         return list_selection_vacancies
 
     @staticmethod
     def print_top_vacancies(list_vacancies, list_selection_vacancies):
+        """
+        Вывод информации по отобранным вакансиям
+        :param list_vacancies: Список топ вакансий по зарплате
+        :param list_selection_vacancies: Список всех вакансий отсортированных по зарплате
+        :return: Отображение вакансий
+        """
         i = 1
         print(f'Всего найдено вакансий: {JobVacancy.count_vacancies}; '
               f'Кол-во вакансий удовлетворяющих диапазону зарплаты: {len(list_selection_vacancies)}')
@@ -82,4 +104,5 @@ class JobVacancy:
             print(
                 f'Название вакансии: {vacancy.name}; Работодатель: {vacancy.employer}; '
                 f'Уровень зарплаты: {vacancy.salary}\n'
-                f'Требования: {vacancy.snippet}\nСсылка на вакансию: {vacancy.url}')
+                f'Требования: {vacancy.snippet}\nСсылка на вакансию: {vacancy.url}'
+            )
