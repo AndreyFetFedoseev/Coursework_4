@@ -1,3 +1,6 @@
+from class_job_files import JobFiles
+
+
 class JobVacancy:
     """
     Класс для работы со списком вакансий
@@ -46,14 +49,14 @@ class JobVacancy:
         )
 
     @classmethod
-    def get_list_vacancy(cls, list_dict_vacancies):
+    def get_list_vacancy(cls, file_json):
         """
         Получение списка экземпляров вакансий
-        :param list_dict_vacancies: list vacancies is file JSON
+        :param file_json: list vacancies is file JSON
         :return: list_vacancy
         """
         list_vacancy = []
-        for dict_vacancy in list_dict_vacancies:
+        for dict_vacancy in JobFiles.load_files(file_json):
             vacancy = cls(dict_vacancy.get('name'), dict_vacancy.get('salary'), dict_vacancy.get('alternate_url'),
                           dict_vacancy.get('snippet').get('requirement'), dict_vacancy.get('employer').get('name'))
             list_vacancy.append(vacancy)
