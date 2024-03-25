@@ -1,4 +1,3 @@
-# import json
 from abc import ABC, abstractmethod
 
 import requests
@@ -17,7 +16,6 @@ class AbstractHH(ABC):
 class HH(AbstractHH):
     """
     Класс для работы с API HeadHunter
-    Класс Parser является родительским классом, который вам необходимо реализовать
     """
 
     def __init__(self):
@@ -27,6 +25,12 @@ class HH(AbstractHH):
         self.vacancies = []
 
     def load_vacancies(self, keyword, city):
+        """
+        Получение списка вакансий по ключевому слову и выбранному городу
+        :param keyword: str
+        :param city: str
+        :return: list
+        """
         self.params['text'] = keyword
         self.params['area'] = city
         while self.params.get('page') != 20:
@@ -34,8 +38,3 @@ class HH(AbstractHH):
             vacancies = response.json()['items']
             self.vacancies.extend(vacancies)
             self.params['page'] += 1
-
-    # @staticmethod
-    # def save_vacancies(files, data):
-    #     with open(files, 'w', encoding='utf-8') as file:
-    #         json.dump(data, file)
